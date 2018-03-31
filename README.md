@@ -1,7 +1,7 @@
 # WE THE PEOPLE ##
 
 ## INSTRUCTIONS ##
-* WE THE PEOPLE is an app that helps the user find their elected officials based on their address. The user has to input their address to lookup their representatives. The app also provides officials Bio, voting history and upcoming bills.
+* WE THE PEOPLE is an application that helps the user find their elected officials based on their address. The user has to input their address to lookup their representatives. The app also provides officials Bio, voting history and upcoming bills.
 
 ## MAIN FEATURE ##
 
