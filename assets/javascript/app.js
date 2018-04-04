@@ -5,11 +5,11 @@ $(document).ready(function () {
   let image;
   let party;
 
-  var selected_state = '';
-  var selected_county = '';
-  var selected_local = '';
-  var all_people = {};
-  var pseudo_id = 1;
+  let selected_state = '';
+  let selected_county = '';
+  let selected_local = '';
+  let all_people = {};
+  let pseudo_id = 1;
 
 
   let federal_pattern = "ocd-division/country:us";
@@ -66,10 +66,10 @@ $(document).ready(function () {
           if (typeof division.officeIndices !== 'undefined') {
 
             $.each(division.officeIndices, function (i, office) {
-              var office_name = offices[office];
+              let office_name = offices[office];
 
               $.each(offices[office]['officialIndices'], function (i, official) {
-                var info = {
+                let info = {
                   'person': null,
                   'office': office_name,
                   'phones': null,
@@ -80,10 +80,8 @@ $(document).ready(function () {
                 };
 
                 // console.log(officials[official])
-                var person = officials[official];
+                let person = officials[official];
                 info['person'] = person;
-
-
 
                 if (typeof person.phones !== 'undefined') {
                   info['phones'] = person.phones;
