@@ -4,6 +4,7 @@ $(document).ready(function () {
   let officialName;
   let image;
   let party;
+  let blankImage = "./assets/images/blank.png"
 
   let selected_state = '';
   let selected_county = '';
@@ -137,7 +138,9 @@ $(document).ready(function () {
     $(resultLoc).append(`<div class="col-sm-6 col-md-6 col-xs-6">
                   <div class="thumbnail" style="border:none; background:white;">
                       <div class="col-sm-6 col-md-6 col-xs-12 image-container">
-                          <img src = "${representatives[key].person.photoUrl}" style = "height:200px; margin-left:-15px;" / >
+                          <img src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}"
+                          alt = "image-not-found"
+                          style = "height:200px;"/>
                       </div>
                       <div class="col-sm-6 col-md-6 col-xs-12">
                           <h3 id="rep-name">${representatives[key].person.name}</h3>
@@ -167,6 +170,12 @@ $(document).ready(function () {
       $("#state-header").append("<h1> State Representatives </h1>")
       let resultLoc = "#results-state";
       for (let key in state_people) {
+        if(state_people[key].person.photoUrl) {
+          console.log("Yes");
+        } else {
+          state_people[key].person.photoUrl = "./assets/images/blank.png";
+        }
+        console.log(state_people[key]);
         appendRepresentativeResults(resultLoc, key, state_people)
       }
     }
