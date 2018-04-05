@@ -65,7 +65,9 @@ $(document).ready(function () {
       if (divisions === undefined) {
 
       } else {
-
+        
+        $("#address-image").html(`<img class="img-responsive img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?size=800x300&maptype=roadmap&markers=${address}" alt="${address}" title="${address}"/> `)
+      
         $.each(divisions, function (division_id, division) {
           // console.log(division.name);
           if (typeof division.officeIndices !== 'undefined') {
