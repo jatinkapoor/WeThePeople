@@ -58,6 +58,7 @@ $(document).ready(function () {
       let federal_people = [];
       let state_people = [];
       let county_people = [];
+      let local_people = [];
 
 
       if (divisions === undefined) {
