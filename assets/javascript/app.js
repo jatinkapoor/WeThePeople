@@ -41,6 +41,9 @@ $(document).ready(function () {
   });
 
   function addressSearch(address) {
+
+    clearPreviousResults();
+
     let key = 'AIzaSyBM-uVbiniH-X5n5wmUhB1zJ4O9VNl57ok';
     let myUrl = 'https://www.googleapis.com/civicinfo/v2/representatives?';
     let urlString = `${myUrl}key=${key}&address=${address}`
@@ -115,10 +118,17 @@ $(document).ready(function () {
           }
         });
       }
-      
+
       statePersonInfo(state_people);
       federalPersonInfo(federal_people);
     });
+  };
+
+  const clearPreviousResults = function () {
+    $("#results-federal").empty();
+    $("#results-state").empty();
+    $("#federal-header").empty();
+    $("#state-header").empty();
   };
 
   const appendRepresentativeResults = function (resultLoc, key, representatives) {
