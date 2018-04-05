@@ -143,33 +143,32 @@ $(document).ready(function () {
                           <h3 id="rep-name">${representatives[key].person.name}</h3>
                           <p id="rep-office">${representatives[key].office.name}</p>
                           <p id="rep-party">${representatives[key].person.party}</p>
-                          <p id="rep-phone">${representatives[key].person.phones[0]}</p>
-                          <p id="rep-email">${representatives[key].emails}</p>
+                          <p id="rep-phone">${representatives[key].person.phones[0] ? representatives[key].person.phones[0] : "N/A"}</p>
+                          <p id="rep-email">${representatives[key].emails ? representatives[key].emails : "N/A"}</p>
                       </div>
                   </div>
               </div>`)
   }
 
   const federalPersonInfo = function (federal_people) {
-    $("#federal-header").append("<h1> Federal Representatives </h1>")
-    let resultLoc = "#results-federal";
-    for (let key in federal_people) {
-      console.log(federal_people[key])
-      console.log(federal_people[key].person.name);
-      console.log(federal_people[key].office.name);
-      console.log(federal_people[key].person.party);
-      console.log(federal_people[key].person.phones[0]);
-      console.log(federal_people[key].emails);
-      appendRepresentativeResults(resultLoc, key, federal_people)
+    if (federal_people.length > 0) {
+      $("#federal-header").append("<h1> Federal Representatives </h1>")
+      let resultLoc = "#results-federal";
+      for (let key in federal_people) {
+        appendRepresentativeResults(resultLoc, key, federal_people)
+      }
     }
   };
 
 
   const statePersonInfo = function (state_people) {
-    $("#state-header").append("<h1> State Representatives </h1>")
-    let resultLoc = "#results-state";
-    for (let key in state_people) {
-      appendRepresentativeResults(resultLoc, key, state_people)
+
+    if (state_people.length > 0) {
+      $("#state-header").append("<h1> State Representatives </h1>")
+      let resultLoc = "#results-state";
+      for (let key in state_people) {
+        appendRepresentativeResults(resultLoc, key, state_people)
+      }
     }
   };
 
