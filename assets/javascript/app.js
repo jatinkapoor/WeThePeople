@@ -66,7 +66,7 @@ $(document).ready(function () {
 
       } else {
         
-        $("#address-image").html(`<img class="img-responsive img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?size=800x300&maptype=roadmap&markers=${address}" alt="${address}" title="${address}"/> `)
+        $("#address-image").html(`<img class="img-responsive img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?size=800x300&maptype=roadmap&markers=${address}&key=AIzaSyB-hbAFUSdbFonA-MiskuCZclPbDN4Z3u0" alt=""/> `)
       
         $.each(divisions, function (division_id, division) {
           // console.log(division.name);
