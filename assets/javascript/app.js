@@ -137,14 +137,14 @@ $(document).ready(function () {
 
   const appendRepresentativeResults = function (resultLoc, key, representatives) {
 
-    $(resultLoc).append(`<div class="col-sm-6 col-md-6 col-xs-6">
+    $(resultLoc).append(`<div class="col-sm-6 col-md-6 col-xs-12 card">
                   <div class="thumbnail" style="border:none; background:white;">
-                      <div class="col-sm-6 col-md-6 col-xs-12 image-container">
-                          <img src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}"
+                      <div class="col-sm-5 col-md-6 col-xs-12 image-container">
+                          <img class="img-responsive" src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}"
                           alt = "image-not-found"
-                          style = "height:200px;"/>
+                          style = "height:250px;"/>
                       </div>
-                      <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="col-sm-6 col-md-6 col-xs-12" info>
                           <h3 id="rep-name">${representatives[key].person.name}</h3>
                           <p id="rep-office">${representatives[key].office.name}</p>
                           <p id="rep-party">${representatives[key].person.party}</p>
