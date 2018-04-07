@@ -137,21 +137,19 @@ $(document).ready(function () {
 
   const appendRepresentativeResults = function (resultLoc, key, representatives) {
 
-    $(resultLoc).append(`<div class="col-sm-6 col-md-6 col-xs-12 card">
-                  <div class="thumbnail" style="border:none; background:white;">
-                      <div class="col-sm-5 col-md-6 col-xs-12 image-container">
-                          <img class="img-responsive" src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}"
-                          alt = "image-not-found"
-                          style = "height:250px;"/>
+    $(resultLoc).append(`<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card-deck">
+                          <div class="card">
+                          <img class="card-img-top" style="height: auto; width: 250px;"
+                          src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}
+                          "/>
+                        <div class="card-body">
+                          <h3 class="card-title" id="rep-name">${representatives[key].person.name}</h3>
+                          <p class="card-text" id="rep-office">${representatives[key].office.name}</p>
+                          <p class="card-text" id="rep-party">${representatives[key].person.party}</p>
+                          <p class="card-text" id="rep-phone">${representatives[key].person.phones[0] ? representatives[key].person.phones[0] : "N/A"}</p>
+                          <p class="card-text" id="rep-email">${representatives[key].emails ? representatives[key].emails : "N/A"}</p>
+                        </div>
                       </div>
-                      <div class="col-sm-6 col-md-6 col-xs-12" info>
-                          <h3 id="rep-name">${representatives[key].person.name}</h3>
-                          <p id="rep-office">${representatives[key].office.name}</p>
-                          <p id="rep-party">${representatives[key].person.party}</p>
-                          <p id="rep-phone">${representatives[key].person.phones[0] ? representatives[key].person.phones[0] : "N/A"}</p>
-                          <p id="rep-email">${representatives[key].emails ? representatives[key].emails : "N/A"}</p>
-                      </div>
-                  </div>
               </div>`)
   }
 
