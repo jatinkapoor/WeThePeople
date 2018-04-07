@@ -23,25 +23,33 @@ $(document).ready(function () {
   let federal_offices = ['United States Senate', 'United States House of Representatives']
   let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
-  google.maps.event.addDomListener(window, 'load', function () {
-    let places = new google.maps.places.Autocomplete(document.getElementById('address'));
-    google.maps.event.addListener(places, 'place_changed', function () {
-      let place = places.getPlace();
-      let address = place.formatted_address;
-      let add = encodeURIComponent(address);
-      addressSearch(add);
-    });
-  });
+  
+  const functionAddress = function() {
+     google.maps.event.addDomListener(window, 'load', function () {
+       let places = new google.maps.places.Autocomplete(document.getElementById('address'));
+       google.maps.event.addListener(places, 'place_changed', function () {
+         let place = places.getPlace();
+         let address = place.formatted_address;
+         let add = encodeURIComponent(address);
+         addressSearch(add);
+       });
+     });
+  };
 
-  google.maps.event.addDomListener(window, 'load', function () {
-    let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
-    google.maps.event.addListener(places, 'place_changed', function () {
-      let place = places.getPlace();
-      let latitude = place.geometry.location.lat();
-      let longitude = place.geometry.location.lng();
-      searchEventsNearMe(latitude, longitude);
+  const functionEvent = function() {
+    google.maps.event.addDomListener(window, 'load', function () {
+      let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
+      google.maps.event.addListener(places, 'place_changed', function () {
+        let place = places.getPlace();
+        let latitude = place.geometry.location.lat();
+        let longitude = place.geometry.location.lng();
+        searchEventsNearMe(latitude, longitude);
+      });
     });
-  });
+  };
+ 
+
+  
 
   $(document).on("click", "#search", function () {
     let address = $("#address").val().trim();
