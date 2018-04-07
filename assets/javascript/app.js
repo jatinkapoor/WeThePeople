@@ -20,8 +20,6 @@ $(document).ready(function () {
   let county_pattern = /ocd-division\/country:us\/state:\D{2}\/county:\D+/;
   let local_pattern = /ocd-division\/country:us\/state:\D{2}\/place:\D+/;
   let district_pattern = /ocd-division\/country:us\/district:\D+/;
-
-
   let federal_offices = ['United States Senate', 'United States House of Representatives']
   let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
