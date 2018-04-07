@@ -5,28 +5,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Find Your Offical</title>
-<!-- Latest compiled and minified CSS -->
-    <link rel="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Crete+Round" rel="stylesheet">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Crete+Round" rel="stylesheet">
 
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
   <link rel="stylesheet" type="text/css" href="./assets/css/extra.css">
 
 </head>
+
 <body>
   <!--header-->
   <header class="main-header" id="header">
     <div class="bg-color">
       <!--nav-->
-<nav class="nav navbar-default navbar-fixed-top top-nav-collapse">
+      <nav class="nav navbar-default navbar-fixed-top top-nav-collapse">
         <div class="container">
           <div class="col-md-12">
             <div class="navbar-header">
@@ -37,9 +35,10 @@
             </div>
             <div class="navbar-collapse navbar-right collapse" id="mynavbar" aria-expanded="false" style="height: 0px;">
               <ul class="nav navbar-nav">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="event.html">Events</a></li>
               </ul>
             </div>
           </div>
@@ -54,22 +53,21 @@
           <!-- search field -->
           <div class="row">
             <div class="col-md-12 search-header">
-                <h3 class="search-text">Enter your address to find your official</h3>
-                <div id="custom-search-input">
-                    <div class="input-group col-md-12">
-                        <input id="address" type="address" class="form-control input-lg" placeholder="1600 Pennsylvania Ave NW Washington, DC 20006"
-                        />
-                        <span class="input-group-btn">
+              <h3 class="search-text">Enter your address to find your official</h3>
+              <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                  <input id="address" type="address" class="form-control input-lg" placeholder="1600 Pennsylvania Ave NW Washington, DC 20006"/>
+                  <span class="input-group-btn">
                             <button id="search" class="btn btn-info btn-lg" type="submit">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
                         </span>
-                    </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- /search field -->
+        </div>
+        <!-- /search field -->
       </div>
     </div>
   </header>
@@ -78,42 +76,42 @@
   <section class="cta-1">
     <div class="container">
       <div class="row">
-        <div class="quote-info text-center"><span class="dec-tec">“</span>I don't make jokes. I just watch the goverment and report the  facts.
-<span class="dec-tec">”</span>
-  <h3>- Know Your Officials</h3>
+        <div class="quote-info text-center"><span class="dec-tec">“</span>I don't make jokes. I just watch the goverment and report the facts.
+          <span class="dec-tec">”</span>
+          <h3>- Know Your Officials</h3>
         </div>
       </div>
     </div>
   </section>
   <!---->
   <!-- API Info -->
-          <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6" id="address-image"></div>
-            <div class="col-lg-3"></div>
-        </div>
-    </div>
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6" id="address-image"></div>
+    <div class="col-lg-3"></div>
+  </div>
+  </div>
 
-    <div class="container">
-        <div class="row">
-            <br />
-            <br />
-        </div>
+  <div class="container">
+    <div class="row">
+      <br />
+      <br />
     </div>
-    <div class="container">
-        <div id="state-header"> </div>
-        <div id="results-state" class="row">
-        </div>
+  </div>
+  <div class="container">
+    <div id="state-header"> </div>
+    <div id="results-state" class="row">
     </div>
-    </div>
+  </div>
+  </div>
 
-    <div class="container">
+  <div class="container">
     <div id="federal-header"></div>
-        <div id="results-federal" class="row">
-            </div>
-        </div>
+    <div id="results-federal" class="row">
     </div>
-    <!-- /api info -->
+  </div>
+  </div>
+  <!-- /api info -->
   <!---->
   <section id="about" class="section-padding about-section">
     <div class="container">
@@ -269,17 +267,10 @@
   </footer>
   <!---->
   <!--contact ends-->
-      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvzo41OTxNaNCRdixEDqiqC_ENZnx4mrE&libraries=places"></script>
-    <script src="./assets/javascript/app.js"></script>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery.easing.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/wow.js"></script>
-  <script src="js/custom.js"></script>
-  <script src="contactform/contactform.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvzo41OTxNaNCRdixEDqiqC_ENZnx4mrE&libraries=places"></script>
+  <script src="./assets/javascript/app.js"></script>
 </body>
+
 </html>
