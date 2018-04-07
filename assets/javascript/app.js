@@ -24,7 +24,7 @@ $(document).ready(function () {
   let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
   
-  const functionAddress = function() {
+
      google.maps.event.addDomListener(window, 'load', function () {
        let places = new google.maps.places.Autocomplete(document.getElementById('address'));
        google.maps.event.addListener(places, 'place_changed', function () {
@@ -34,9 +34,7 @@ $(document).ready(function () {
          addressSearch(add);
        });
      });
-  };
 
-  const functionEvent = function() {
     google.maps.event.addDomListener(window, 'load', function () {
       let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
       google.maps.event.addListener(places, 'place_changed', function () {
@@ -46,7 +44,7 @@ $(document).ready(function () {
         searchEventsNearMe(latitude, longitude);
       });
     });
-  };
+ 
  
 
   
