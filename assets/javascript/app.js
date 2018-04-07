@@ -23,7 +23,7 @@ $(document).ready(function () {
 
 
   let federal_offices = ['United States Senate', 'United States House of Representatives']
-
+  let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
   google.maps.event.addDomListener(window, 'load', function () {
     let places = new google.maps.places.Autocomplete(document.getElementById('address'));
@@ -35,11 +35,60 @@ $(document).ready(function () {
     });
   });
 
+  google.maps.event.addDomListener(window, 'load', function () {
+    let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
+    google.maps.event.addListener(places, 'place_changed', function () {
+      let place = places.getPlace();
+      let latitude = place.geometry.location.lat();
+      let longitude = place.geometry.location.lng();
+      searchEventsNearMe(latitude, longitude);
+    });
+  });
+
   $(document).on("click", "#search", function () {
     let address = $("#address").val().trim();
     let add = encodeURIComponent(address);
     addressSearch(add);
   });
+
+  $(document).on("click", "#searchEvent", function () {
+    let address = $("#addressEvents").val().trim();
+    let add = encodeURIComponent(address);
+    findCoordinates(add);
+  });
+
+  const findCoordinates = function (address) {
+    key = `AIzaSyCvzo41OTxNaNCRdixEDqiqC_ENZnx4mrE`;
+    url = `${googleCoordinates}?key=${key}&address=${address}`;
+    $.ajax(url = url, method = 'GET').then(function (response) {
+      let location = response.results[0].geometry.location;
+      let latitude = location.lat;
+      let longitude = location.lng;
+      searchEventsNearMe(latitude, longitude);
+    });
+  };
+
+
+  const searchEventsNearMe = function (latitude, longitude) {
+    console.log(latitude, longitude);
+    let url = `https://www.eventbriteapi.com/v3/events/search/`;
+    let param1 = `politics`;
+    let param2 = `venue`;
+    let param3 = 'date'
+    let param4 = "20mi"
+    let token = `6KIBNWQ7Q6BCI7O4X7ESC34F3A45UVO3EPZZ2QMA7BEUBO5M2Z`;
+    let eventUrl = `${url}?token=UEJIH7SJNP5SWIVJUDC7&q=${param1}&expand=${param2}&location.latitude=${latitude}&location.longitude=${longitude}&sort_by=${param3}&location.within=${param4}`;
+    console.log(eventUrl);
+    $.ajax(url = eventUrl, headers = {
+      'Content-Type': 'application/json'
+    }, crossDomain = true, method = 'GET').then(function (response) {
+
+      console.log(response);
+
+    });
+  }
+
+
 
   function addressSearch(address) {
 
@@ -65,9 +114,9 @@ $(document).ready(function () {
       if (divisions === undefined) {
 
       } else {
-        
+
         $("#address-image").html(`<img class="img-responsive img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?size=800x300&maptype=roadmap&markers=${address}&key=AIzaSyB-hbAFUSdbFonA-MiskuCZclPbDN4Z3u0" alt=""/> `)
-      
+
         $.each(divisions, function (division_id, division) {
           // console.log(division.name);
           if (typeof division.officeIndices !== 'undefined') {
@@ -149,8 +198,7 @@ $(document).ready(function () {
                           <p class="card-text" id="rep-phone">${representatives[key].person.phones[0] ? representatives[key].person.phones[0] : "N/A"}</p>
                           <p class="card-text" id="rep-email">${representatives[key].emails ? representatives[key].emails : "N/A"}</p>
                         </div>
-                      </div>
-              </div>`)
+                      </div></div>`)
   }
 
   const federalPersonInfo = function (federal_people) {
@@ -170,12 +218,6 @@ $(document).ready(function () {
       $("#state-header").append("<h1> State Representatives </h1>")
       let resultLoc = "#results-state";
       for (let key in state_people) {
-        if(state_people[key].person.photoUrl) {
-          console.log("Yes");
-        } else {
-          state_people[key].person.photoUrl = "./assets/images/blank.png";
-        }
-        console.log(state_people[key]);
         appendRepresentativeResults(resultLoc, key, state_people)
       }
     }
