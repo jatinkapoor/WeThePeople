@@ -260,7 +260,7 @@ $(document).ready(function () {
 
     $(resultLoc).append(`<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card-deck">
                           <div class="card">
-                          <img class="card-img-top" style="height: auto; width: 250px;"
+                          <img class="card-img-top" 
                           src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}
                           "/>
                         <div class="card-body">
