@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
   let officeName;
   let officialName;
@@ -25,9 +25,9 @@ $(document).ready(function() {
   let federal_offices = ['United States Senate', 'United States House of Representatives']
   let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
-  google.maps.event.addDomListener(window, 'load', function() {
+  google.maps.event.addDomListener(window, 'load', function () {
     let places = new google.maps.places.Autocomplete(document.getElementById('address'));
-    google.maps.event.addListener(places, 'place_changed', function() {
+    google.maps.event.addListener(places, 'place_changed', function () {
       let place = places.getPlace();
       let address = place.formatted_address;
       let add = encodeURIComponent(address);
@@ -35,9 +35,9 @@ $(document).ready(function() {
     });
   });
 
-  google.maps.event.addDomListener(window, 'load', function() {
+  google.maps.event.addDomListener(window, 'load', function () {
     let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
-    google.maps.event.addListener(places, 'place_changed', function() {
+    google.maps.event.addListener(places, 'place_changed', function () {
       let place = places.getPlace();
       let latitude = place.geometry.location.lat();
       let longitude = place.geometry.location.lng();
@@ -45,22 +45,75 @@ $(document).ready(function() {
     });
   });
 
-  $(document).on("click", "#search", function() {
+  $(document).on("click", "#search", function () {
     let address = $("#address").val().trim();
     let add = encodeURIComponent(address);
     addressSearch(add);
   });
 
-  $(document).on("click", "#searchEvent", function() {
+  $(document).on("click", "#searchEvent", function () {
     let address = $("#addressEvents").val().trim();
     let add = encodeURIComponent(address);
     findCoordinates(add);
   });
 
-  const findCoordinates = function(address) {
+  $(document).on("click", "#searchBills", function () {
+
+    console.log("Here");
+    let subject = $("#billsSearch").val().trim();
+    console.log(subject);
+    if (subject && subject !== "") {
+      searchBills(subject);
+    }
+
+  });
+
+
+  const searchBills = function (subject) {
+
+    let url = `https://api.propublica.org/congress/v1/bills/subjects/`;
+    let key = `1AVq9dC52my1FvlrE5fgv1pgltyxBtSGGlJNy8vW`;
+    let searchUrl = `${url}${subject}.json`
+    let billLocation = "#billLocation";
+    $(billLocation).empty();
+    $.ajax({
+      type: "GET",
+      url: searchUrl,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('X-API-Key', key);
+      },
+      success: function (response) {
+        console.log(response);
+        if (200) {
+          for (let i = 0; i < response.results.length; i++) {
+            appendBillsResults(i, response, billLocation);
+          }
+        }
+      }
+    });
+  }
+
+    const appendBillsResults = function (iter, response, billLocation) {
+      console.log("In append results");
+      $(billLocation).append(`<div class="col-sm-6 col-md-6 col-xs-12 card">
+               <div class="thumbnail" style="border:none; background:white;">
+                   <div class="col-sm-6 col-md-6 col-xs-12" info>
+                       <p id="bill-name">${response.results[iter].primary_subject}</p>
+                       <p class="bill-title">${response.results[iter].title}</p>
+                       <p id="bill-summary">${response.results[iter].summary_short}</p>
+                       <p id="bill-govtrack">${response.results[iter].govtrack_url}</p>
+                       <p id="bill-sponserName">${response.results[iter].sponsor_name}</p>
+                       <p id="bill-sponserName">${response.results[iter].sponsor_party}</p>
+                   </div>
+                   </div>
+               </div>
+           </div>`)
+    }
+
+  const findCoordinates = function (address) {
     key = `AIzaSyCvzo41OTxNaNCRdixEDqiqC_ENZnx4mrE`;
     url = `${googleCoordinates}?key=${key}&address=${address}`;
-    $.ajax(url = url, method = 'GET').then(function(response) {
+    $.ajax(url = url, method = 'GET').then(function (response) {
       let location = response.results[0].geometry.location;
       let latitude = location.lat;
       let longitude = location.lng;
@@ -69,7 +122,7 @@ $(document).ready(function() {
   };
 
 
-  const searchEventsNearMe = function(latitude, longitude) {
+  const searchEventsNearMe = function (latitude, longitude) {
     console.log(latitude, longitude);
     let eventDomLoc = "#eventsResult"
     let url = `https://www.eventbriteapi.com/v3/events/search/`;
@@ -82,26 +135,15 @@ $(document).ready(function() {
     console.log(eventUrl);
     $.ajax(url = eventUrl, headers = {
       'Content-Type': 'application/json'
-    }, crossDomain = true, method = 'GET').then(function(response) {
+    }, crossDomain = true, method = 'GET').then(function (response) {
 
       for (let i = 0; i < response.events.length; i++) {
-        //console.log(response.events[i].description.text);
-        console.log(response.events[i].name.text);
-        console.log(response.events[i].start.local);
-        console.log(response.events[i].end.local);
-        console.log(response.events[i].description.text);
-        console.log(response.events[i].venue.address.localized_address_display);
-        console.log(response.events[i])
-        console.log(response.events[i].logo);
         appendEventResults(i, response, eventDomLoc);
-
       }
-
     });
   }
 
-
-  const appendEventResults = function(iter, response, eventDomLoc) {
+  const appendEventResults = function (iter, response, eventDomLoc) {
 
     $(eventDomLoc).append(`<div class="col-sm-6 col-md-6 col-xs-12 card">
                <div class="thumbnail" style="border:none; background:white;">
@@ -126,12 +168,11 @@ $(document).ready(function() {
   function addressSearch(address) {
 
     clearPreviousResults();
-
     let key = 'AIzaSyBM-uVbiniH-X5n5wmUhB1zJ4O9VNl57ok';
     let myUrl = 'https://www.googleapis.com/civicinfo/v2/representatives?';
     let urlString = `${myUrl}key=${key}&address=${address}`
 
-    $.ajax(url = urlString, method = 'GET').then(function(response) {
+    $.ajax(url = urlString, method = 'GET').then(function (response) {
 
       let divisions = response.divisions;
       let officials = response.officials;
@@ -150,14 +191,14 @@ $(document).ready(function() {
 
         $("#address-image").html(`<img class="img-responsive img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?size=800x300&maptype=roadmap&markers=${address}&key=AIzaSyB-hbAFUSdbFonA-MiskuCZclPbDN4Z3u0" alt=""/> `)
 
-        $.each(divisions, function(division_id, division) {
+        $.each(divisions, function (division_id, division) {
           // console.log(division.name);
           if (typeof division.officeIndices !== 'undefined') {
 
-            $.each(division.officeIndices, function(i, office) {
+            $.each(division.officeIndices, function (i, office) {
               let office_name = offices[office];
 
-              $.each(offices[office]['officialIndices'], function(i, official) {
+              $.each(offices[office]['officialIndices'], function (i, official) {
                 let info = {
                   'person': null,
                   'office': office_name,
@@ -210,14 +251,14 @@ $(document).ready(function() {
     });
   };
 
-  const clearPreviousResults = function() {
+  const clearPreviousResults = function () {
     $("#results-federal").empty();
     $("#results-state").empty();
     $("#federal-header").empty();
     $("#state-header").empty();
   };
 
-  const appendRepresentativeResults = function(resultLoc, key, representatives) {
+  const appendRepresentativeResults = function (resultLoc, key, representatives) {
 
     $(resultLoc).append(`<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card-deck">
                           <div class="card">
@@ -234,7 +275,7 @@ $(document).ready(function() {
                       </div></div>`)
   }
 
-  const federalPersonInfo = function(federal_people) {
+  const federalPersonInfo = function (federal_people) {
     if (federal_people.length > 0) {
       $("#federal-header").append("<h1> Federal Representatives </h1>")
       let resultLoc = "#results-federal";
@@ -245,7 +286,7 @@ $(document).ready(function() {
   };
 
 
-  const statePersonInfo = function(state_people) {
+  const statePersonInfo = function (state_people) {
 
     if (state_people.length > 0) {
       $("#state-header").append("<h1> State Representatives </h1>")
@@ -257,7 +298,7 @@ $(document).ready(function() {
   };
 
 
-  function checkFederal(division_id, office_name) {
+  const checkFederal = function (division_id, office_name) {
     if (division_id == federal_pattern ||
       cd_pattern.test(division_id) ||
       federal_offices.indexOf(office_name.name) >= 0)
@@ -266,7 +307,7 @@ $(document).ready(function() {
       return false;
   }
 
-  function checkState(division_id) {
+  const checkState = function (division_id) {
     if (state_pattern.test(division_id) ||
       sl_pattern.test(division_id))
       return true;
@@ -274,7 +315,7 @@ $(document).ready(function() {
       return false;
   }
 
-  function checkCounty(division_id) {
+  const checkCounty = function (division_id) {
     if (county_pattern.test(division_id))
       return true;
     else
