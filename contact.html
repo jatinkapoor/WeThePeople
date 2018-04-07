@@ -41,13 +41,13 @@
                   <a href="index.html">Home</a>
                 </li>
                 <li>
-                  <a href="#">About</a>
+                  <a href="about.html">About</a>
                 </li>
                 <li>
                   <a href="events.html">Events Near You</a>
                 </li>
                 <li>
-                  <a href="contact.html">Contact</a>
+                  <a href="#">Contact</a>
                 </li>
               </ul>
             </div>
@@ -59,80 +59,74 @@
         <div class="wrapper wow fadeInUp delay-05s">
           <h2 class="top-title">Knowledge Is Power</h2>
           <h3 class="title">WE THE PEOPLE</h3>
-          <h4 class="sub-title">Know your officials before you vote</h4>
         </div>
       </div>
   </header>
   <!---->
-  <section id="about" class="section-padding about-section">
+  <section class="section-padding wow fadeInUp delay-05s" id="contact">
     <div class="container">
-      <div class="row">
-        <div class="col-md-3 wow fadeInLeft delay-05s">
+      <div class="row white">
+        <div class="col-md-8 col-sm-12">
           <div class="section-title">
-            <h2 class="head-title"> About WTP </h2>
+            <h2 class="head-title black">Contact Us</h2>
             <hr class="botm-line">
-            <p class="sec-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua..</p>
+            <p class="sec-para black">Let us know what you think! We would love to hear from you.</p>
           </div>
         </div>
-        <div class="col-md-9">
-          <div class="col-md-6 wow fadeInRight delay-02s">
-            <div class="icon">
-              <i class="fa fa-paint-brush"></i>
+        <div class="col-md-12 col-sm-12">
+          <div class="col-md-6 col-sm-6" style="padding-left:0px;">
+            <h3 class="cont-title">Email Us</h3>
+            <div id="sendmessage">Your message has been sent. Thank you!</div>
+            <div id="errormessage"></div>
+            <div class="contact-info">
+              <form action="" method="post" role="form" class="contactForm">
+                <div class="form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars"
+                  />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email"
+                  />
+                  <div class="validation"></div>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"
+                  />
+                  <div class="validation"></div>
+                </div>
+
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                  <div class="validation"></div>
+                </div>
+                <button type="submit" class="btn btn-send">Send</button>
+              </form>
             </div>
-            <div class="icon-text">
-              <h3 class="txt-tl">Kendra</h3>
-              <p class="txt-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula felis euismod semper. </p>
+            <!--space seperator -->
+            <div class="row">
+              <div class="col-md-12 col-sm-12">&nbsp;</div>
+            </div>
+            <!--/ space seperator-->
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <h3 class="cont-title">Visit Us</h3>
+            <div class="location-info">
+              <p class="white">
+                <span aria-hidden="true" class="fa fa-map-marker"></span>1600 Pennslyvania Ave., Washington DC, 20006</p>
+              <p class="white">
+                <span aria-hidden="true" class="fa fa-phone"></span>Phone: (612)-867-5309</p>
+              <p class="white">
+                <span aria-hidden="true" class="fa fa-envelope"></span>Email:
+                <a href="" class="link-dec">info@wethepeople.com</a>
+              </p>
             </div>
           </div>
-          <div class="col-md-6 wow fadeInRight delay-02s">
-            <div class="icon">
-              <i class="fa fa-cogs"></i>
-            </div>
-            <div class="icon-text">
-              <h3 class="txt-tl">Jatin</h3>
-              <p class="txt-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula felis euismod semper. </p>
-            </div>
-          </div>
-          <div class="col-md-6 wow fadeInRight delay-04s">
-            <div class="icon">
-              <i class="fa fa-mobile"></i>
-            </div>
-            <div class="icon-text">
-              <h3 class="txt-tl">Solomon</h3>
-              <p class="txt-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula felis euismod semper. </p>
-            </div>
-          </div>
-          <div class="col-md-6 wow fadeInRight delay-04s">
-            <div class="icon">
-              <i class="fa fa-desktop"></i>
-            </div>
-            <div class="icon-text">
-              <h3 class="txt-tl">Sama</h3>
-              <p class="txt-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula felis euismod semper. </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!---->
-  <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="cta-txt">
-            <h3>Be In The Know</h3>
-            <p>Join our 1776+ subscribers and get access to the latest news, scandals, social engagements and much more!</p>
-          </div>
-        </div>
-        <div class="col-md-4 text-center">
-          <a href="#" class="btn btn-submit">Subscribe Now</a>
         </div>
       </div>
     </div>
   </section>
-  <!---->
   <!---->
   <footer class="" id="footer">
     <div class="container">
@@ -164,7 +158,6 @@
     </div>
   </footer>
   <!---->
-  <!--contact ends-->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
