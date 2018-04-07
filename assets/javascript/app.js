@@ -56,10 +56,7 @@ $(document).ready(function () {
   });
 
   $(document).on("click", "#searchBills", function () {
-
-    console.log("Here");
     let subject = $("#billsSearch").val().trim();
-    console.log(subject);
     if (subject && subject !== "") {
       searchBills(subject);
     }
@@ -74,6 +71,7 @@ $(document).ready(function () {
     let searchUrl = `${url}${subject}.json`
     let billLocation = "#billLocation";
     $(billLocation).empty();
+    $("#billsSearch").val('');
     $.ajax({
       type: "GET",
       url: searchUrl,
@@ -81,8 +79,7 @@ $(document).ready(function () {
         xhr.setRequestHeader('X-API-Key', key);
       },
       success: function (response) {
-        console.log(response);
-        if (200) {
+        if (200 && response.status !== "ERROR") {
           for (let i = 0; i < response.results.length; i++) {
             appendBillsResults(i, response, billLocation);
           }
@@ -92,7 +89,6 @@ $(document).ready(function () {
   }
 
     const appendBillsResults = function (iter, response, billLocation) {
-      console.log("In append results");
       $(billLocation).append(`<div class="col-sm-6 col-md-6 col-xs-12 card">
                <div class="thumbnail" style="border:none; background:white;">
                    <div class="col-sm-6 col-md-6 col-xs-12" info>
@@ -120,8 +116,7 @@ $(document).ready(function () {
   };
 
 
-  const searchEventsNearMe = function (latitude, longitude) {
-    console.log(latitude, longitude);
+  const searchEventsNearMe = function (latitude, longitude) { 
     let eventDomLoc = "#eventsResult"
     let url = `https://www.eventbriteapi.com/v3/events/search/`;
     let param1 = `politics`;
@@ -130,7 +125,6 @@ $(document).ready(function () {
     let param4 = "20mi"
     let token = `6KIBNWQ7Q6BCI7O4X7ESC34F3A45UVO3EPZZ2QMA7BEUBO5M2Z`;
     let eventUrl = `${url}?token=UEJIH7SJNP5SWIVJUDC7&q=${param1}&expand=${param2}&location.latitude=${latitude}&location.longitude=${longitude}&sort_by=${param3}&location.within=${param4}`;
-    console.log(eventUrl);
     $.ajax(url = eventUrl, headers = {
       'Content-Type': 'application/json'
     }, crossDomain = true, method = 'GET').then(function (response) {
@@ -176,7 +170,6 @@ $(document).ready(function () {
       let officials = response.officials;
       let offices = response.offices;
 
-      // console.log(divisions);
       let federal_people = [];
       let state_people = [];
       let county_people = [];
@@ -190,7 +183,6 @@ $(document).ready(function () {
         $("#address-image").html(`<img class="img-responsive img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?size=800x300&maptype=roadmap&markers=${address}&key=AIzaSyB-hbAFUSdbFonA-MiskuCZclPbDN4Z3u0" alt=""/> `)
 
         $.each(divisions, function (division_id, division) {
-          // console.log(division.name);
           if (typeof division.officeIndices !== 'undefined') {
 
             $.each(division.officeIndices, function (i, office) {
@@ -207,7 +199,6 @@ $(document).ready(function () {
                   'pseudo_id': pseudo_id
                 };
 
-                // console.log(officials[official])
                 let person = officials[official];
                 info['person'] = person;
 
