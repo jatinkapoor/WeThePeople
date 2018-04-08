@@ -13,6 +13,7 @@ body {
     font-family: 'Lato', sans-serif;
   }
 
+  
   .no-results {
     background-color: #f2dede;
     border-color: #ebcccc;
@@ -474,7 +475,11 @@ body {
   }
   
   @media (max-width: 768px) {
-      .navbar-collapse {
+    .top-nav-collapse {
+      background-color: #240101d4;
+    }
+    
+    .navbar-collapse {
           border-top: 0;
     }
     
@@ -508,6 +513,7 @@ body {
     height: auto;
     width: 100%;
   }
+  
 }
   
   
