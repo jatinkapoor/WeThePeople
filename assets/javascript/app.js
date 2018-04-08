@@ -24,43 +24,43 @@ $(document).ready(function () {
   let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
   
-
-     google.maps.event.addDomListener(window, 'load', function () {
-       let places = new google.maps.places.Autocomplete(document.getElementById('address'));
-       google.maps.event.addListener(places, 'place_changed', function () {
-         let place = places.getPlace();
-         let address = place.formatted_address;
-         let add = encodeURIComponent(address);
-         addressSearch(add);
-       });
-     });
-
-    google.maps.event.addDomListener(window, 'load', function () {
-      let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
-      google.maps.event.addListener(places, 'place_changed', function () {
-        let place = places.getPlace();
-        let latitude = place.geometry.location.lat();
-        let longitude = place.geometry.location.lng();
-        searchEventsNearMe(latitude, longitude);
-      });
+  //=== Address Autocomplete ===//
+  google.maps.event.addDomListener(window, 'load', function () {
+    let places = new google.maps.places.Autocomplete(document.getElementById('address'));
+    google.maps.event.addListener(places, 'place_changed', function () {
+      let place = places.getPlace();
+      let address = place.formatted_address;
+      let add = encodeURIComponent(address);
+      addressSearch(add);
     });
- 
- 
+  });
 
-  
+  //=== Events Autocomplete ===//
+  google.maps.event.addDomListener(window, 'load', function () {
+    let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
+    google.maps.event.addListener(places, 'place_changed', function () {
+      let place = places.getPlace();
+      let latitude = place.geometry.location.lat();
+      let longitude = place.geometry.location.lng();
+      searchEventsNearMe(latitude, longitude);
+    });
+  });
 
+  //=== Represent Search Button ==//
   $(document).on("click", "#search", function () {
     let address = $("#address").val().trim();
     let add = encodeURIComponent(address);
     addressSearch(add);
   });
 
+  //=== Event Search Button ==//
   $(document).on("click", "#searchEvent", function () {
     let address = $("#addressEvents").val().trim();
     let add = encodeURIComponent(address);
     findCoordinates(add);
   });
 
+  //=== Bills Search Button ===//
   $(document).on("click", "#searchBills", function () {
     let subject = $("#billsSearch").val().trim();
     if (subject && subject !== "") {
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
   });
 
-
+  //===  Bills FUNCTION ===//
   const searchBills = function (subject) {
 
     let url = `https://api.propublica.org/congress/v1/bills/subjects/`;
@@ -94,22 +94,23 @@ $(document).ready(function () {
     });
   }
 
+  //=== Bills Results TO Window ===//
     const appendBillsResults = function (iter, response, billLocation) {
-      $(billLocation).append(`<div class="col-sm-6 col-md-6 col-xs-12 card">
-               <div class="thumbnail" style="border:none; background:white;">
-                   <div class="col-sm-6 col-md-6 col-xs-12" info>
+      $(billLocation).append(`<div class="col-sm-6 col-md-6 col-xs-12 card-column">
+                      <div class="card event-card bills-card">                   
+                      <div class="bills-info">
                        <p id="bill-name">${response.results[iter].primary_subject}</p>
                        <p class="bill-title">${response.results[iter].title}</p>
                        <p id="bill-summary">${response.results[iter].summary_short}</p>
                        <p id="bill-govtrack">${response.results[iter].govtrack_url}</p>
-                       <p id="bill-sponserName">${response.results[iter].sponsor_name}</p>
-                       <p id="bill-sponserName">${response.results[iter].sponsor_party}</p>
+                       <p id="bill-sponserName">Sponsor: ${response.results[iter].sponsor_name}</p>
+                       <p id="bill-sponserName">Party Type: ${response.results[iter].sponsor_party}</p>
                    </div>
                    </div>
-               </div>
            </div>`)
     }
 
+  //=== FINDS COORDINATES IN GOOGLE ===//
   const findCoordinates = function (address) {
     key = `AIzaSyCvzo41OTxNaNCRdixEDqiqC_ENZnx4mrE`;
     url = `${googleCoordinates}?key=${key}&address=${address}`;
@@ -141,27 +142,31 @@ $(document).ready(function () {
     });
   }
 
+  //Append Event Results To Window //
   const appendEventResults = function (iter, response, eventDomLoc) {
 
-    $(eventDomLoc).append(`<div class="col-sm-6 col-md-6 col-xs-12 card">
-               <div class="thumbnail" style="border:none; background:white;">
-                   <div class="col-sm-5 col-md-6 col-xs-12 image-container">
-                       <img class = "img-responsive"
+    $(eventDomLoc).append(`<div class="col-md-6 col-sm-12 col-xs-12 card-columns">
+                      <div class="card event-card bills-card">
+                       <img class = "card-img-events"
                        src = "${response.events[iter].logo.original.url ? response.events[iter].logo.original.url : ""}"
                        alt = "image-not-found"
-                       style = "height:250px;"/>
-                   </div>
-                   <div class="col-sm-6 col-md-6 col-xs-12" info>
+                       "/>
+                   <div class="card-body">
                        <h3 id="event-name">${response.events[iter].name.text}</h3>
-                       <p class="event-desc">${response.events[iter].description.text}</p>
-                       <p id="event-start">${response.events[iter].start.local}</p>
+                    <div class="desc-text">
+                       <p class="event-desc" style="overflow:scroll; height:200px;">${response.events[iter].description.text}</p>
+                    </div>
+                    <div class="event-date">
+                       <h4 id="event-start">${response.events[iter].start.local}</h4>
                        <p id="event-end">${response.events[iter].end.local}</p>
                        <p id="event-address">${response.events[iter].venue.address.localized_address_display}</p>
                    </div>
                </div>
+              </div>
            </div>`)
   }
 
+  //==== ADDRESS SEARCH FUNCTION ===//
 
   function addressSearch(address) {
 
@@ -257,11 +262,7 @@ $(document).ready(function () {
 
     $(resultLoc).append(`<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card-deck">
                           <div class="card">
-<<<<<<< HEAD
-                          <img class="card-img-top"
-=======
                           <img class="card-img-top" 
->>>>>>> cfd06668dc69f2a3f17159eef569d0df7ccfd483
                           src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}
                           "/>
                         <div class="card-body">
