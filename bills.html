@@ -37,21 +37,21 @@
             </div>
             <div class="navbar-collapse navbar-right collapse" id="mynavbar" aria-expanded="false" style="height: 0px;">
               <ul class="nav navbar-nav">
-                <li>
-                  <a href="index.html">Home</a>
-                </li>
-                <li>
-                  <a href="#">Events Near You</a>
-                </li>
-                <li>
-                  <a href="bills.html">Bills</a>
-                </li>
-                <li>
-                  <a href="about.html">About</a>
-                </li>
-                <li>
-                  <a href="contact.html">Contact</a>
-                </li>
+                  <li>
+                    <a href="index.html">Home</a>
+                  </li>
+                  <li>
+                    <a href="events.html">Events Near You</a>
+                  </li>
+                  <li>
+                    <a href="#">Bills</a>
+                  </li>
+                  <li>
+                    <a href="about.html">About</a>
+                  </li>
+                  <li>
+                    <a href="contact.html">Contact</a>
+                  </li>
               </ul>
             </div>
           </div>
@@ -61,7 +61,7 @@
       <div class="container text-center">
         <div class="wrapper wow fadeInUp delay-05s">
           <h2 class="top-title">Knowledge Is Power</h2>
-          <h3 class="title">Events Near Me</h3>
+          <h3 class="title">Bills</h3>
 
           <!-- Content Separator -->
           <div class="separator">
@@ -72,13 +72,13 @@
             <!-- Search Field -->
             <div class="row">
               <div class="col-md-12">
-                <h3>Enter your address to find events</h3>
+                <h3>Enter Subject to Search for Recent Bills</h3>
                 <div id="custom-search-input">
                   <div class="input-group col-md-12">
-                    <input id="addressEvents" type="address" class="form-control input-lg" placeholder="1600 Pennsylvania Ave NW Washington, DC 20006"
+                    <input id="billsSearch" type="text" class="form-control input-lg" placeholder="education"
                     />
                     <span class="input-group-btn">
-                      <button id="searchEvent" class="btn btn-info btn-lg" type="submit">
+                      <button id="searchBills" class="btn btn-info btn-lg" type="submit">
                         <i class="glyphicon glyphicon-search"></i>
                       </button>
                     </span>
@@ -110,48 +110,47 @@
           </div>
 
           <div class="container">
-            <div id="eventHeader"> </div>
-            <div id="eventsResult" class="row">
+            <div id="billLocation" class="row">
             </div>
           </div>
-    
-      </div>
-      <!---->
-      <footer class="" id="footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-7 footer-copyright">
-              © We The People - All rights reserved
-              <div class="credits">
-                <!--
+
+        </div>
+        <!---->
+        <footer class="" id="footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-7 footer-copyright">
+                © We The People - All rights reserved
+                <div class="credits">
+                  <!--
               All the links in the footer should remain intact.
               You can delete the links only if you purchased the pro version.
               Licensing information: https://bootstrapmade.com/license/
               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Bethany
             -->
-                Designed by
-                <a href="#">VOTE OR DIE</a>
+                  Designed by
+                  <a href="#">VOTE OR DIE</a>
+                </div>
               </div>
-            </div>
-            <div class="col-sm-5 footer-social">
-              <div class="pull-right hidden-xs hidden-sm">
-                <a href="#">
-                  <i class="fa fa-facebook"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-twitter"></i>
-                </a>
+              <div class="col-sm-5 footer-social">
+                <div class="pull-right hidden-xs hidden-sm">
+                  <a href="#">
+                    <i class="fa fa-facebook"></i>
+                  </a>
+                  <a href="#">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </footer>
-      <!---->
-      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvzo41OTxNaNCRdixEDqiqC_ENZnx4mrE&libraries=places"></script>
-      <script src="./assets/javascript/app.js"></script>
+        </footer>
+        <!---->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvzo41OTxNaNCRdixEDqiqC_ENZnx4mrE&libraries=places"></script>
+        <script src="./assets/javascript/app.js"></script>
 </body>
 
 </html>
