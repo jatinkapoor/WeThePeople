@@ -25,7 +25,7 @@ $(document).ready(function () {
   let federal_offices = ['United States Senate', 'United States House of Representatives']
   let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
-  
+
   //=== Address Autocomplete ===//
   google.maps.event.addDomListener(window, 'load', function () {
     let places = new google.maps.places.Autocomplete(document.getElementById('address'));
@@ -89,20 +89,20 @@ $(document).ready(function () {
       success: function (response) {
         $(".loader").hide();
         if (200 && response.status !== "ERROR") {
-            console.log(response);
+          console.log(response);
           for (let i = 0; i < response.results.length; i++) {
             appendBillsResults(i, response, billLocation);
           }
         } else if (response.status === "ERROR") {
           appendNoResultFound(billLocation);
-        } 
+        }
       }
     });
   }
 
   //=== Bills Results TO Window ===//
-    const appendBillsResults = function (iter, response, billLocation) {
-      $(billLocation).append(`<div class="col-sm-12 col-md-12 col-xs-12 card-column">
+  const appendBillsResults = function (iter, response, billLocation) {
+    $(billLocation).append(`<div class="col-sm-12 col-md-12 col-xs-12 card-column">
                       <div class="card event-card bills-card">                   
                       <div class="bills-info">
                        <p id="bill-name">${response.results[iter].primary_subject ? response.results[iter].primary_subject : ""}</p>
@@ -114,9 +114,9 @@ $(document).ready(function () {
                    </div>
                    </div>
            </div>`)
-    }
+  }
 
-  const appendNoResultFound = function(location) {
+  const appendNoResultFound = function (location) {
     $(location).append(`<div class="no-results text-center"> No results found for the search criteria</div>`)
   }
 
@@ -133,7 +133,7 @@ $(document).ready(function () {
   };
 
 
-  const searchEventsNearMe = function (latitude, longitude) { 
+  const searchEventsNearMe = function (latitude, longitude) {
     let eventDomLoc = "#eventsResult"
     let url = `https://www.eventbriteapi.com/v3/events/search/`;
     let param1 = `politics`;
@@ -150,7 +150,7 @@ $(document).ready(function () {
           appendEventResults(i, response, eventDomLoc);
         }
       } else {
-         appendNoResultFound(eventDomLoc);
+        appendNoResultFound(eventDomLoc);
       }
     });
   }
@@ -340,17 +340,16 @@ $(document).ready(function () {
     scrollFunction()
   };
 
-  function scrollFunction() {
-    if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+  const scrollFunction = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
       $("#myBtn").show();
     } else {
       $("#myBtn").hide();
     }
   }
 
-  $(document).on('click', '#myBtn', function(){
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+  $(document).on('click', '#myBtn', function () {
+    $("html, body").animate({scrollTop: 0}, 600);
   });
 
 });
