@@ -5,6 +5,8 @@ $(document).ready(function () {
   let image;
   let party;
   let blankImage = "./assets/images/blank.png"
+  let eventBlank = "./assets/images/event.png"
+
 
   let selected_state = '';
   let selected_county = '';
@@ -66,7 +68,6 @@ $(document).ready(function () {
     if (subject && subject !== "") {
       searchBills(subject);
     }
-
   });
 
   //===  Bills FUNCTION ===//
@@ -78,6 +79,7 @@ $(document).ready(function () {
     let billLocation = "#billLocation";
     $(billLocation).empty();
     $("#billsSearch").val('');
+    $(".loader").show();
     $.ajax({
       type: "GET",
       url: searchUrl,
@@ -85,30 +87,38 @@ $(document).ready(function () {
         xhr.setRequestHeader('X-API-Key', key);
       },
       success: function (response) {
+        $(".loader").hide();
         if (200 && response.status !== "ERROR") {
+            console.log(response);
           for (let i = 0; i < response.results.length; i++) {
             appendBillsResults(i, response, billLocation);
           }
-        }
+        } else if (response.status === "ERROR") {
+          appendNoResultFound(billLocation);
+        } 
       }
     });
   }
 
   //=== Bills Results TO Window ===//
     const appendBillsResults = function (iter, response, billLocation) {
-      $(billLocation).append(`<div class="col-sm-6 col-md-6 col-xs-12 card-column">
+      $(billLocation).append(`<div class="col-sm-12 col-md-12 col-xs-12 card-column">
                       <div class="card event-card bills-card">                   
                       <div class="bills-info">
-                       <p id="bill-name">${response.results[iter].primary_subject}</p>
-                       <p class="bill-title">${response.results[iter].title}</p>
-                       <p id="bill-summary">${response.results[iter].summary_short}</p>
-                       <p id="bill-govtrack">${response.results[iter].govtrack_url}</p>
-                       <p id="bill-sponserName">Sponsor: ${response.results[iter].sponsor_name}</p>
-                       <p id="bill-sponserName">Party Type: ${response.results[iter].sponsor_party}</p>
+                       <p id="bill-name">${response.results[iter].primary_subject ? response.results[iter].primary_subject : ""}</p>
+                       <p class="bill-title">${response.results[iter].title ? response.results[iter].title : ""}</p>
+                       <p id="bill-summary" class="${response.results[iter].summary ? "bill-desc" : ""}">${response.results[iter].summary ? response.results[iter].summary : ""}</p>
+                       <p id="bill-govtrack"><a href="${response.results[iter].govtrack_url}" target="_blank">${response.results[iter].govtrack_url ? response.results[iter].govtrack_url : ""}</a></p>
+                       <p id="bill-sponserName">Sponsor: ${response.results[iter].sponsor_name ? response.results[iter].sponsor_name : ""}</p>
+                       <p id="bill-sponserName">Party Type: ${response.results[iter].sponsor_party ? response.results[iter].sponsor_party : ""}</p>
                    </div>
                    </div>
            </div>`)
     }
+
+  const appendNoResultFound = function(location) {
+    $(location).append(`<div class="no-results text-center"> No results found for the search criteria</div>`)
+  }
 
   //=== FINDS COORDINATES IN GOOGLE ===//
   const findCoordinates = function (address) {
@@ -135,9 +145,12 @@ $(document).ready(function () {
     $.ajax(url = eventUrl, headers = {
       'Content-Type': 'application/json'
     }, crossDomain = true, method = 'GET').then(function (response) {
-
-      for (let i = 0; i < response.events.length; i++) {
-        appendEventResults(i, response, eventDomLoc);
+      if (response.events.length > 0) {
+        for (let i = 0; i < response.events.length; i++) {
+          appendEventResults(i, response, eventDomLoc);
+        }
+      } else {
+         appendNoResultFound(eventDomLoc);
       }
     });
   }
@@ -145,10 +158,10 @@ $(document).ready(function () {
   //Append Event Results To Window //
   const appendEventResults = function (iter, response, eventDomLoc) {
 
-    $(eventDomLoc).append(`<div class="col-md-6 col-sm-12 col-xs-12 card-columns">
+    $(eventDomLoc).append(`<div class="col-md-12 col-sm-12 col-xs-12 card-columns">
                       <div class="card event-card bills-card">
                        <img class = "card-img-events"
-                       src = "${response.events[iter].logo.original.url ? response.events[iter].logo.original.url : ""}"
+                       src = "${response.events[iter].logo ? response.events[iter].logo.original.url : eventBlank}"
                        alt = "image-not-found"
                        "/>
                    <div class="card-body">
@@ -157,9 +170,9 @@ $(document).ready(function () {
                        <p class="event-desc" style="overflow:scroll; height:200px;">${response.events[iter].description.text}</p>
                     </div>
                     <div class="event-date">
-                       <h4 id="event-start">${response.events[iter].start.local}</h4>
-                       <p id="event-end">${response.events[iter].end.local}</p>
-                       <p id="event-address">${response.events[iter].venue.address.localized_address_display}</p>
+                       <p id="event-start">Event Start: ${response.events[iter].start.local ? moment(response.events[iter].start.local).format('LLLL') : ""}</p>
+                       <p id="event-end">Event End: ${response.events[iter].end.local ? moment(response.events[iter].end.local).format('LLLL') : ""}</p>
+                       <p id="event-address">Address: ${response.events[iter].venue.address.localized_address_display}</p>
                    </div>
                </div>
               </div>
@@ -321,4 +334,23 @@ $(document).ready(function () {
     else
       return false;
   }
+
+  //===Scroll to Top Fucntion ==//
+  window.onscroll = function () {
+    scrollFunction()
+  };
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+      $("#myBtn").show();
+    } else {
+      $("#myBtn").hide();
+    }
+  }
+
+  $(document).on('click', '#myBtn', function(){
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  });
+
 });
