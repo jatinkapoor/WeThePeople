@@ -25,29 +25,35 @@ $(document).ready(function () {
   let federal_offices = ['United States Senate', 'United States House of Representatives']
   let googleCoordinates = "https://maps.googleapis.com/maps/api/geocode/json";
 
-
   //=== Address Autocomplete ===//
-  google.maps.event.addDomListener(window, 'load', function () {
-    let places = new google.maps.places.Autocomplete(document.getElementById('address'));
-    google.maps.event.addListener(places, 'place_changed', function () {
-      let place = places.getPlace();
-      let address = place.formatted_address;
-      let add = encodeURIComponent(address);
-      addressSearch(add);
+  const initAddressRepresentative = function () {
+    google.maps.event.addDomListener(window, 'load', function () {
+      var places = new google.maps.places.Autocomplete(document.getElementById('address'));
+      google.maps.event.addListener(places, 'place_changed', function () {
+        let place = places.getPlace();
+        let address = place.formatted_address;
+        let add = encodeURIComponent(address);
+        addressSearch(add);
+      });
     });
-  });
+  }
 
   //=== Events Autocomplete ===//
-  google.maps.event.addDomListener(window, 'load', function () {
-    let places = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
-    google.maps.event.addListener(places, 'place_changed', function () {
-      let place = places.getPlace();
-      let latitude = place.geometry.location.lat();
-      let longitude = place.geometry.location.lng();
-      searchEventsNearMe(latitude, longitude);
+  const initAddressEvents = function() {
+    google.maps.event.addDomListener(window, 'load', function () {
+      var eventPlace = new google.maps.places.Autocomplete(document.getElementById('addressEvents'));
+      google.maps.event.addListener(eventPlace, 'place_changed', function () {
+        let place = eventPlace.getPlace();
+        let latitude = place.geometry.location.lat();
+        let longitude = place.geometry.location.lng();
+        searchEventsNearMe(latitude, longitude);
+      });
     });
-  });
-
+  }
+  
+  initAddressEvents();
+  initAddressRepresentative();
+  
   //=== Represent Search Button ==//
   $(document).on("click", "#search", function () {
     let address = $("#address").val().trim();
@@ -88,14 +94,18 @@ $(document).ready(function () {
       },
       success: function (response) {
         $(".loader").hide();
-        if (200 && response.status !== "ERROR") {
-          console.log(response);
+        if (response['200'] === 'OK' && response.status !== "ERROR") {
           for (let i = 0; i < response.results.length; i++) {
             appendBillsResults(i, response, billLocation);
           }
         } else if (response.status === "ERROR") {
           appendNoResultFound(billLocation);
+        } else {
+          appendError(billLocation);
         }
+      },
+      error: function (response){
+        appendError(billLocation);
       }
     });
   }
@@ -118,6 +128,10 @@ $(document).ready(function () {
 
   const appendNoResultFound = function (location) {
     $(location).append(`<div class="no-results text-center"> No results found for the search criteria</div>`)
+  }
+
+  const appendError = function (location) {
+    $(location).append(`<div class="no-results text-center"> Something went wrong. Try again later</div>`)
   }
 
   //=== FINDS COORDINATES IN GOOGLE ===//
@@ -145,6 +159,7 @@ $(document).ready(function () {
     $.ajax(url = eventUrl, headers = {
       'Content-Type': 'application/json'
     }, crossDomain = true, method = 'GET').then(function (response) {
+      console.log(response);
       if (response.events.length > 0) {
         for (let i = 0; i < response.events.length; i++) {
           appendEventResults(i, response, eventDomLoc);
@@ -353,3 +368,6 @@ $(document).ready(function () {
   });
 
 });
+
+
+
