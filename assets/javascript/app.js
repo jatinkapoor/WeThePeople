@@ -6,6 +6,7 @@ $(document).ready(function () {
   let party;
   let blankImage = "./assets/images/blank.png"
   let eventBlank = "./assets/images/event.png"
+  let eventDomLoc = "#eventsResult";
 
 
   let selected_state = '';
@@ -50,10 +51,10 @@ $(document).ready(function () {
       });
     });
   }
-  
+
   initAddressEvents();
   initAddressRepresentative();
-  
+
   //=== Represent Search Button ==//
   $(document).on("click", "#search", function () {
     let address = $("#address").val().trim();
@@ -113,7 +114,7 @@ $(document).ready(function () {
   //=== Bills Results TO Window ===//
   const appendBillsResults = function (iter, response, billLocation) {
     $(billLocation).append(`<div class="col-sm-12 col-md-12 col-xs-12 card-column">
-                      <div class="card event-card bills-card">                   
+                      <div class="card event-card bills-card">
                       <div class="bills-info">
                        <p id="bill-name">${response.results[iter].primary_subject ? response.results[iter].primary_subject : ""}</p>
                        <p class="bill-title">${response.results[iter].title ? response.results[iter].title : ""}</p>
@@ -143,7 +144,9 @@ $(document).ready(function () {
       let latitude = location.lat;
       let longitude = location.lng;
       searchEventsNearMe(latitude, longitude);
-    });
+    }).catch(function() {
+      appendError(eventDomLoc);
+    });;
   };
 
 
@@ -159,7 +162,6 @@ $(document).ready(function () {
     $.ajax(url = eventUrl, headers = {
       'Content-Type': 'application/json'
     }, crossDomain = true, method = 'GET').then(function (response) {
-      console.log(response);
       if (response.events.length > 0) {
         for (let i = 0; i < response.events.length; i++) {
           appendEventResults(i, response, eventDomLoc);
@@ -167,6 +169,8 @@ $(document).ready(function () {
       } else {
         appendNoResultFound(eventDomLoc);
       }
+    }).catch(function(){
+      appendError(eventDomLoc);
     });
   }
 
@@ -216,7 +220,7 @@ $(document).ready(function () {
 
 
       if (divisions === undefined) {
-
+        appendNoResultFound("#results-state");
       } else {
 
         $("#address-image").html(`<img class="img-responsive img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?size=800x300&maptype=roadmap&markers=${address}&key=AIzaSyB-hbAFUSdbFonA-MiskuCZclPbDN4Z3u0" alt=""/> `)
@@ -268,18 +272,22 @@ $(document).ready(function () {
                 pseudo_id = pseudo_id + 1;
 
               });
-
             });
           }
         });
       }
-
+      countyPersonInfo(county_people);
+      localPersonInfo(local_people);
       statePersonInfo(state_people);
       federalPersonInfo(federal_people);
     });
   };
 
   const clearPreviousResults = function () {
+    $("#local-header").empty();
+    $("#results-local").empty();
+    $("#county-header").empty();
+    $("#results-county").empty();
     $("#results-federal").empty();
     $("#results-state").empty();
     $("#federal-header").empty();
@@ -290,7 +298,7 @@ $(document).ready(function () {
 
     $(resultLoc).append(`<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card-deck">
                           <div class="card">
-                          <img class="card-img-top" 
+                          <img class="card-img-top"
                           src = "${representatives[key].person.photoUrl ? representatives[key].person.photoUrl : blankImage}
                           "/>
                         <div class="card-body">
@@ -302,6 +310,27 @@ $(document).ready(function () {
                         </div>
                       </div></div>`)
   }
+
+
+  const localPersonInfo = function (local_people) {
+    if (local_people.length > 0) {
+      $("#local-header").append("<h1> Local Representatives </h1>")
+      let resultLoc = "#results-local";
+      for (let key in local_people) {
+        appendRepresentativeResults(resultLoc, key, local_people);
+      }
+    }
+  };
+
+  const countyPersonInfo = function (county_people) {
+    if (county_people.length > 0) {
+      $("#county-header").append("<h1> County Representatives </h1>")
+      let resultLoc = "#results-county";
+      for (let key in county_people) {
+        appendRepresentativeResults(resultLoc, key, county_people);
+      }
+    }
+  };
 
   const federalPersonInfo = function (federal_people) {
     if (federal_people.length > 0) {
@@ -368,6 +397,3 @@ $(document).ready(function () {
   });
 
 });
-
-
-
