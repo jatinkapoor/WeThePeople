@@ -151,7 +151,7 @@ $(document).ready(function () {
 
 
   const searchEventsNearMe = function (latitude, longitude) {
-    let eventDomLoc = "#eventsResult"
+    let eventDomLoc = "#eventsResult";
     let url = `https://www.eventbriteapi.com/v3/events/search/`;
     let param1 = `politics`;
     let param2 = `venue`;
@@ -159,6 +159,7 @@ $(document).ready(function () {
     let param4 = "20mi"
     let token = `6KIBNWQ7Q6BCI7O4X7ESC34F3A45UVO3EPZZ2QMA7BEUBO5M2Z`;
     let eventUrl = `${url}?token=UEJIH7SJNP5SWIVJUDC7&q=${param1}&expand=${param2}&location.latitude=${latitude}&location.longitude=${longitude}&sort_by=${param3}&location.within=${param4}`;
+    $(eventDomLoc).empty();
     $.ajax(url = eventUrl, headers = {
       'Content-Type': 'application/json'
     }, crossDomain = true, method = 'GET').then(function (response) {
@@ -176,7 +177,6 @@ $(document).ready(function () {
 
   //Append Event Results To Window //
   const appendEventResults = function (iter, response, eventDomLoc) {
-
     $(eventDomLoc).append(`<div class="col-md-12 col-sm-12 col-xs-12 card-columns">
                       <div class="card event-card bills-card">
                        <img class = "card-img-events"
@@ -344,7 +344,6 @@ $(document).ready(function () {
 
 
   const statePersonInfo = function (state_people) {
-
     if (state_people.length > 0) {
       $("#state-header").append("<h1> State Representatives </h1>")
       let resultLoc = "#results-state";
